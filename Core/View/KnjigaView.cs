@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Core.Controller;
+﻿using Core.Controller;
 
 namespace Core.View;
 
@@ -15,13 +12,14 @@ public partial class KnjigaView
         while (true)
         {
             Console.WriteLine("\n--- KNJIGE ---");
-            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 0 Nazad");
-            switch (ConsoleInput.ReadInt("Izbor", 0, 4))
+            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 5 Detalji | 0 Nazad");
+            switch (ConsoleInput.ReadInt("Izbor", 0, 5))
             {
-                case 1: Add(); break;      
-                case 2: Edit(); break;     
+                case 1: Add(); break;
+                case 2: Edit(); break;
                 case 3: Delete(); break;
                 case 4: ShowAll(); break;
+                case 5: ShowDetails(); break;
                 case 0: return;
             }
         }
@@ -45,5 +43,26 @@ public partial class KnjigaView
             Console.WriteLine($"{k.Isbn,-16}{k.Naziv,-26}{k.Zanr,-14}{k.GodinaIzdanja,-6}" +
                               $"{k.Cena,-10:0.00}{k.BrojStrana,-6}{k.Izdavac?.Naziv ?? "-",-16}{autori}");
         }
+    }
+
+    private void ShowDetails()
+    {
+        string isbn = ConsoleInput.ReadString("ISBN knjige");
+        var k = _controller.GetById(isbn);
+        if (k == null) { Console.WriteLine("Knjiga ne postoji."); return; }
+
+        Console.WriteLine($"\nISBN: {k.Isbn}");
+        Console.WriteLine($"Naziv: {k.Naziv}");
+        Console.WriteLine($"Zanr: {k.Zanr}");
+        Console.WriteLine($"Godina izdanja: {k.GodinaIzdanja}");
+        Console.WriteLine($"Cena: {k.Cena:0.00}");
+        Console.WriteLine($"Broj strana: {k.BrojStrana}");
+        Console.WriteLine("Autori: " +
+            (k.Autori.Count == 0 ? "-" : string.Join(", ", k.Autori.Select(a => $"{a.Ime} {a.Prezime}"))));
+        Console.WriteLine($"Izdavac: {k.Izdavac?.Naziv ?? "-"}");
+        Console.WriteLine("Kupci: " +
+            (k.Kupci.Count == 0 ? "-" : string.Join(", ", k.Kupci.Select(p => $"{p.Ime} {p.Prezime}"))));
+        Console.WriteLine("Na listi zelja: " +
+            (k.ZeljniPosetioci.Count == 0 ? "-" : string.Join(", ", k.ZeljniPosetioci.Select(p => $"{p.Ime} {p.Prezime}"))));
     }
 }

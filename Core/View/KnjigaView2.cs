@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Core.Controller;
-using Core.Models;
+﻿using Core.Models;
 
 namespace Core.View;
 
-// Student 1: dodavanje i izmena knjige.
-// Polje _controller, Menu, ShowAll i Delete su u KnjigaView.Student2.cs (partial class).
 public partial class KnjigaView
 {
     private Knjiga ReadKnjiga(string isbn)
@@ -24,6 +18,7 @@ public partial class KnjigaView
 
         string lkLista = ConsoleInput.ReadString("Brojevi LK autora (odvojeni zarezom)");
         k.AutoriIds = lkLista.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                             .Distinct()
                              .ToList();
         k.IzdavacSifra = ConsoleInput.ReadOptional("Sifra izdavaca");
         return k;
@@ -32,6 +27,11 @@ public partial class KnjigaView
     private void Add()
     {
         string isbn = ConsoleInput.ReadString("ISBN");
+        if (_controller.GetById(isbn) != null)
+        {
+            Console.WriteLine("Knjiga sa tim ISBN-om vec postoji.");
+            return;
+        }
         Console.WriteLine(_controller.Add(ReadKnjiga(isbn), out string err) ? "Knjiga dodata." : err);
     }
 

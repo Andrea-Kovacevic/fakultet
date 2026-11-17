@@ -1,6 +1,5 @@
-﻿using Core.Models;
-using Core.View;
-using Core.Controller;
+﻿using Core.Controller;
+using Core.Models;
 
 namespace Core.View;
 
@@ -14,13 +13,14 @@ public class IzdavacView
         while (true)
         {
             Console.WriteLine("\n--- IZDAVACI ---");
-            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 0 Nazad");
-            switch (ConsoleInput.ReadInt("Izbor", 0, 4))
+            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 5 Detalji | 0 Nazad");
+            switch (ConsoleInput.ReadInt("Izbor", 0, 5))
             {
                 case 1: Add(); break;
                 case 2: Edit(); break;
                 case 3: Delete(); break;
                 case 4: ShowAll(); break;
+                case 5: ShowDetails(); break;
                 case 0: return;
             }
         }
@@ -28,9 +28,15 @@ public class IzdavacView
 
     private void Add()
     {
+        string sifra = ConsoleInput.ReadString("Sifra");
+        if (_controller.GetById(sifra) != null)
+        {
+            Console.WriteLine("Izdavac sa tom sifrom vec postoji.");
+            return;
+        }
         var i = new Izdavac
         {
-            Sifra = ConsoleInput.ReadString("Sifra"),
+            Sifra = sifra,
             Naziv = ConsoleInput.ReadString("Naziv"),
             SefLk = ConsoleInput.ReadOptional("Broj LK sefa (autor sa min. 5 god. iskustva)")
         };
@@ -40,10 +46,11 @@ public class IzdavacView
     private void Edit()
     {
         string sifra = ConsoleInput.ReadString("Sifra izdavaca za izmenu");
-        if (_controller.GetById(sifra) == null) { Console.WriteLine("Izdavac ne postoji."); return; }
+        var postojeci = _controller.GetById(sifra);
+        if (postojeci == null) { Console.WriteLine("Izdavac ne postoji."); return; }
 
         string naziv = ConsoleInput.ReadString("Novi naziv");
-        string? sef = ConsoleInput.ReadOptional("Broj LK novog sefa");
+        string? sef = ConsoleInput.ReadOptional("Broj LK novog sefa (Enter = bez sefa)");
         Console.WriteLine(_controller.Edit(sifra, naziv, sef, out string err) ? "Izmenjeno." : err);
     }
 
@@ -63,5 +70,20 @@ public class IzdavacView
             Console.WriteLine($"{i.Sifra,-10}{i.Naziv,-22}" +
                               $"{(i.Sef == null ? "-" : i.Sef.Ime + " " + i.Sef.Prezime),-24}" +
                               $"{i.Knjige.Count,-8}{i.Autori.Count}");
+    }
+
+    private void ShowDetails()
+    {
+        string sifra = ConsoleInput.ReadString("Sifra izdavaca");
+        var i = _controller.GetById(sifra);
+        if (i == null) { Console.WriteLine("Izdavac ne postoji."); return; }
+
+        Console.WriteLine($"\nSifra: {i.Sifra}");
+        Console.WriteLine($"Naziv: {i.Naziv}");
+        Console.WriteLine($"Sef: {(i.Sef == null ? "-" : i.Sef.Ime + " " + i.Sef.Prezime)}");
+        Console.WriteLine("Knjige: " +
+            (i.Knjige.Count == 0 ? "-" : string.Join(", ", i.Knjige.Select(k => k.Naziv))));
+        Console.WriteLine("Autori: " +
+            (i.Autori.Count == 0 ? "-" : string.Join(", ", i.Autori.Select(a => $"{a.Ime} {a.Prezime}"))));
     }
 }

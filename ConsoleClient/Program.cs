@@ -1,11 +1,10 @@
 ﻿using Core.Controller;
 using Core.View;
-using SajamKnjiga.Controller;
-using SajamKnjiga.Storage;
-using SajamKnjiga.View;
+using Core.Storage;
 using System.Text;
 
-Console.OutputEncoding = Encoding.UTF8;   // da se prikazu č, ć, š, đ, ž
+Console.OutputEncoding = Encoding.UTF8;
+Console.InputEncoding = Encoding.UTF8;   
 
 var ctx = new DataContext();
 ctx.Load();                                // ucitavanje pri pokretanju

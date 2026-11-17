@@ -1,6 +1,5 @@
-﻿using Core.Models;
-using Core.View;
-using Core.Controller;
+﻿using Core.Controller;
+using Core.Models;
 
 namespace Core.View;
 
@@ -14,13 +13,14 @@ public class PosetilacView
         while (true)
         {
             Console.WriteLine("\n--- POSETIOCI ---");
-            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 0 Nazad");
-            switch (ConsoleInput.ReadInt("Izbor", 0, 4))
+            Console.WriteLine("1 Dodaj | 2 Izmeni | 3 Obrisi | 4 Prikazi | 5 Detalji | 0 Nazad");
+            switch (ConsoleInput.ReadInt("Izbor", 0, 5))
             {
                 case 1: Add(); break;
                 case 2: Edit(); break;
                 case 3: Delete(); break;
                 case 4: ShowAll(); break;
+                case 5: ShowDetails(); break;
                 case 0: return;
             }
         }
@@ -49,6 +49,11 @@ public class PosetilacView
     private void Add()
     {
         string broj = ConsoleInput.ReadString("Broj clanske karte (npr. SK-1-2023)");
+        if (_controller.GetById(broj) != null)
+        {
+            Console.WriteLine("Posetilac sa tim brojem clanske karte vec postoji.");
+            return;
+        }
         Console.WriteLine(_controller.Add(ReadPosetilac(broj), out string err) ? "Posetilac dodat." : err);
     }
 
@@ -75,5 +80,26 @@ public class PosetilacView
             Console.WriteLine($"{p.BrojClanskeKarte,-14}{p.Ime,-12}{p.Prezime,-14}" +
                               $"{p.DatumRodjenja,-12:dd.MM.yyyy}{p.Status,-9}{p.ProsecnaOcena,-7:0.0}" +
                               $"{p.ListaZelja.Count,-6}{p.Adresa}");
+    }
+
+    private void ShowDetails()
+    {
+        string broj = ConsoleInput.ReadString("Broj clanske karte");
+        var p = _controller.GetById(broj);
+        if (p == null) { Console.WriteLine("Posetilac ne postoji."); return; }
+
+        Console.WriteLine($"\nKarta: {p.BrojClanskeKarte}");
+        Console.WriteLine($"Ime i prezime: {p.Ime} {p.Prezime}");
+        Console.WriteLine($"Datum rodjenja: {p.DatumRodjenja:dd.MM.yyyy}");
+        Console.WriteLine($"Adresa: {p.Adresa}");
+        Console.WriteLine($"Telefon: {p.Telefon}");
+        Console.WriteLine($"Email: {p.Email}");
+        Console.WriteLine($"Godina clanstva: {p.GodinaClanstva}");
+        Console.WriteLine($"Status: {p.Status}");
+        Console.WriteLine($"Prosecna ocena: {p.ProsecnaOcena:0.0}");
+        Console.WriteLine("Kupljene knjige: " +
+            (p.Kupovine.Count == 0 ? "-" : string.Join(", ", p.Kupovine.Select(k => k.Knjiga?.Naziv ?? k.Isbn))));
+        Console.WriteLine("Lista zelja: " +
+            (p.ListaZelja.Count == 0 ? "-" : string.Join(", ", p.ListaZelja.Select(k => k.Naziv))));
     }
 }
