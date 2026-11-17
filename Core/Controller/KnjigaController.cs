@@ -3,6 +3,7 @@ using Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SajamKnjiga.Storage;
 
 namespace Core.Controller;
 
@@ -21,7 +22,7 @@ public bool Delete(string isbn)
     var k = GetById(isbn);
     if (k == null) return false;
 
-    _ctx.Kupovine.RemoveAll(x => x.KnjigaIsbn == isbn);       
+    _ctx.Kupovine.RemoveAll(x => x.Isbn == isbn);       
     foreach (var p in _ctx.Posetioci)
         p.ListaZeljaIsbn.Remove(isbn);                        
  

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Controller;
 
-
 namespace Core.View;
 
 public partial class KnjigaView

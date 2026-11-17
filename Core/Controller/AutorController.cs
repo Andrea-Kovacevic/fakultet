@@ -3,6 +3,7 @@ using Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SajamKnjiga.Storage;
 
 namespace Core.Controller;
     public class AutorController
@@ -40,7 +41,7 @@ namespace Core.Controller;
         if (izmenjen.GodineIskustva < 0) { error = "Godine iskustva ne mogu biti negativne."; return false; }
 
        
-        if (izmenjen.GodineIskustva < 5 && _ctx.Izdavaci.Any(i => i.SefId == brojLk))
+        if (izmenjen.GodineIskustva < 5 && _ctx.Izdavaci.Any(i => i.SefLk == brojLk))
         {
             error = "Autor je sef izdavaca i mora imati bar 5 godina iskustva.";
             return false;
@@ -65,8 +66,8 @@ namespace Core.Controller;
 
         foreach (var k in _ctx.Knjige)
             k.AutoriIds.Remove(brojLk);                       
-        foreach (var i in _ctx.Izdavaci.Where(i => i.SefId == brojLk))
-            i.SefId = null;                                   
+        foreach (var i in _ctx.Izdavaci.Where(i => i.SefLk == brojLk))
+            i.SefLk = null;                                   
 
         _ctx.Autori.Remove(a);
         _ctx.Commit();
