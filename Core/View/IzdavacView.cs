@@ -1,8 +1,8 @@
 ﻿using Core.Models;
 using Core.View;
-using SajamKnjiga.Controller;
+using Core.Controller;
 
-namespace SajamKnjiga.View;
+namespace Core.View;
 
 public class IzdavacView
 {

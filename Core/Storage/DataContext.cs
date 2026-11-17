@@ -1,7 +1,7 @@
 ﻿using Core.Models;
 using Core.Storage;
 
-namespace SajamKnjiga.Storage;
+namespace Core.Storage;
 
 /// <summary>Drzi sve liste, ucitava/cuva fajlove i povezuje objekte (Relink).</summary>
 public class DataContext

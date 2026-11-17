@@ -68,7 +68,7 @@ public class KupovinaView
         Console.WriteLine($"\n{"Posetilac",-14}{"ISBN",-16}{"Naziv knjige",-26}{"Datum",-12}{"Ocena",-7}Komentar");
         Console.WriteLine(new string('-', 95));
         foreach (var k in _controller.GetAll())
-            Console.WriteLine($"{k.Id,-14}{k.Isbn,-16}{k.Knjiga?.Naziv ?? "?",-26}" +
-                              $"{k.DatumKupovine:dd.MM.yyyy,-12}{k.Ocena,-7}{k.Komentar}");
+            Console.WriteLine($"{k.PosetilacKartica,-14}{k.Isbn,-16}{k.Knjiga?.Naziv ?? "?",-26}" +
+                              $"{k.DatumKupovine,-12:dd.MM.yyyy}{k.Ocena,-7}{k.Komentar}");
     }
 }

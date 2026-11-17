@@ -73,6 +73,6 @@ private void ShowAll()
     Console.WriteLine(new string('-', 105));
     foreach (var a in _controller.GetAll())
         Console.WriteLine($"{a.BrojLicneKarte,-12}{a.Ime,-12}{a.Prezime,-14}" +
-                          $"{a.DatumRodjenja:dd.MM.yyyy,-12}{a.GodineIskustva,-9}{a.Email,-26}{a.Adresa}");
+                          $"{a.DatumRodjenja,-12:dd.MM.yyyy}{a.GodineIskustva,-9}{a.Email,-26}{a.Adresa}");
 }
 }

@@ -1,7 +1,7 @@
 ﻿using Core.Models;
-using SajamKnjiga.Storage;
+using Core.Storage;
 
-namespace SajamKnjiga.Controller;
+namespace Core.Controller;
 
 public class IzdavacController
 {

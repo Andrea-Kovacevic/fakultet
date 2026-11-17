@@ -40,7 +40,7 @@ public static class ConsoleInput
         while (true)
         {
             Console.Write($"{prompt}: ");
-            if (decimal.TryParse(Console.ReadLine(), NumberStyles.Number,
+            if (decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint,
                     CultureInfo.InvariantCulture, out decimal v) && v >= 0) return v;
             Console.WriteLine("Unesite nenegativan broj (npr. 999.50).");
         }

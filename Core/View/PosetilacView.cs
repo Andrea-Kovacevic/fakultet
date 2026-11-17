@@ -1,8 +1,8 @@
 ﻿using Core.Models;
 using Core.View;
-using SajamKnjiga.Controller;
+using Core.Controller;
 
-namespace SajamKnjiga.View;
+namespace Core.View;
 
 public class PosetilacView
 {
@@ -73,7 +73,7 @@ public class PosetilacView
         Console.WriteLine(new string('-', 100));
         foreach (var p in _controller.GetAll())
             Console.WriteLine($"{p.BrojClanskeKarte,-14}{p.Ime,-12}{p.Prezime,-14}" +
-                              $"{p.DatumRodjenja:dd.MM.yyyy,-12}{p.Status,-9}{p.ProsecnaOcena,-7:0.0}" +
+                              $"{p.DatumRodjenja,-12:dd.MM.yyyy}{p.Status,-9}{p.ProsecnaOcena,-7:0.0}" +
                               $"{p.ListaZelja.Count,-6}{p.Adresa}");
     }
 }
