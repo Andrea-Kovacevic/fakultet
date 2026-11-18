@@ -6,8 +6,6 @@ using System.Text;
 
 namespace Core.Controller;
 
-// Student 1: dodavanje i izmena knjige.
-// Konstruktor, GetAll, GetById i Delete su u KnjigaController.Student2.cs (partial class).
 public partial class KnjigaController
 {
     private bool Validate(Knjiga k, out string error)
@@ -55,7 +53,6 @@ public partial class KnjigaController
         k.BrojStrana = izmenjena.BrojStrana;
         k.AutoriIds = izmenjena.AutoriIds;
         k.IzdavacSifra = izmenjena.IzdavacSifra;
-        // ISBN se ne menja (kljuc)
         _ctx.Commit();
         return true;
     }

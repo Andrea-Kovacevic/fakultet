@@ -20,7 +20,6 @@ public JsonStorage(string fileName)
 {
     string dir = "Data";
     Directory.CreateDirectory(dir);
-    // Putanja preko Path.DirectorySeparatorChar (nefunkcionalni zahtev)
     _filePath = dir + Path.DirectorySeparatorChar + fileName;
 }
 

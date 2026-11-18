@@ -2,7 +2,7 @@
 
 Projektni zadatak iz predmeta **Osnovi informacionih sistema i softverskog inženjerstva** (2025/2026).
 
-Aplikacija je namenjena referentu sajma knjiga. U ovoj fazi (prvi domaći zadatak) implementirani su model podataka, serijalizacija i funkcionalnosti 8.1-8.4 (dodavanje, izmena, brisanje i prikaz entiteta) kroz konzolnu aplikaciju.
+Aplikacija je namenjena referentu sajma knjiga. U ovoj fazi (prva kontrolna tačka) implementirani su model podataka, serijalizacija i funkcionalnosti 8.1-8.4 (dodavanje, izmena, brisanje i prikaz entiteta) kroz konzolnu aplikaciju.
 
 ## Tim
 

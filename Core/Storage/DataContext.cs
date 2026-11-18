@@ -3,7 +3,6 @@ using Core.Storage;
 
 namespace Core.Storage;
 
-/// <summary>Drzi sve liste, ucitava/cuva fajlove i povezuje objekte (Relink).</summary>
 public class DataContext
 {
     public List<Posetilac> Posetioci { get; private set; } = new();
@@ -37,7 +36,6 @@ public class DataContext
         _izdavaciFile.Save(Izdavaci);
     }
 
-    /// <summary>Posle svake izmene: sacuvaj i ponovo povezi objekte.</summary>
     public void Commit()
     {
         Save();
@@ -46,7 +44,6 @@ public class DataContext
 
     private void Relink()
     {
-        // 1) ocisti izvedene liste
         foreach (var p in Posetioci) { p.Kupovine.Clear(); p.ListaZelja.Clear(); }
         foreach (var a in Autori) a.Knjige.Clear();
         foreach (var i in Izdavaci) { i.Knjige.Clear(); i.Autori.Clear(); i.Sef = null; }
@@ -55,7 +52,6 @@ public class DataContext
             k.Autori.Clear(); k.Kupci.Clear(); k.ZeljniPosetioci.Clear(); k.Izdavac = null;
         }
 
-        // 2) knjige <-> autori, knjige <-> izdavac
         foreach (var k in Knjige)
         {
             foreach (var id in k.AutoriIds)
@@ -75,11 +71,9 @@ public class DataContext
             }
         }
 
-        // 3) sef izdavaca
         foreach (var i in Izdavaci)
             i.Sef = Autori.FirstOrDefault(a => a.BrojLicneKarte == i.SefLk);
 
-        // 4) lista zelja
         foreach (var p in Posetioci)
             foreach (var isbn in p.ListaZeljaIsbn)
             {
@@ -89,7 +83,6 @@ public class DataContext
                 k.ZeljniPosetioci.Add(p);
             }
 
-        // 5) kupovine
         foreach (var kup in Kupovine)
         {
             kup.Posetilac = Posetioci.FirstOrDefault(p => p.BrojClanskeKarte == kup.PosetilacKartica);

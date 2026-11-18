@@ -28,7 +28,7 @@ public class KupovinaController
             return false;
         }
 
-        posetilac.ListaZeljaIsbn.Remove(nova.Isbn);   // kupljena knjiga ide sa liste zelja
+        posetilac.ListaZeljaIsbn.Remove(nova.Isbn);  
         _ctx.Kupovine.Add(nova);
         _ctx.Commit();
         error = "";
