@@ -7,11 +7,11 @@ Console.OutputEncoding = Encoding.UTF8;
 Console.InputEncoding = Encoding.UTF8;   
 
 var ctx = new DataContext();
-ctx.Load();                                // ucitavanje pri pokretanju
+ctx.Load();                                
 
 var posetiociView = new PosetilacView(new PosetilacController(ctx));
-var autoriView = new AutorView(new AutorController(ctx));        // Student 2
-var knjigeView = new KnjigaView(new KnjigaController(ctx));      // Student 1 + 2
+var autoriView = new AutorView(new AutorController(ctx));        
+var knjigeView = new KnjigaView(new KnjigaController(ctx));      
 var izdavaciView = new IzdavacView(new IzdavacController(ctx));
 var kupovineView = new KupovinaView(new KupovinaController(ctx));
 
@@ -27,7 +27,7 @@ while (true)
         case 4: izdavaciView.Menu(); break;
         case 5: kupovineView.Menu(); break;
         case 0:
-            ctx.Save();                    // cuvanje pri zatvaranju
+            ctx.Save();                    
             return;
     }
 }
