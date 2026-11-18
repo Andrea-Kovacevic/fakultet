@@ -13,7 +13,6 @@ public class IzdavacController
     public Izdavac? GetById(string sifra) =>
         _ctx.Izdavaci.FirstOrDefault(i => i.Sifra == sifra);
 
-    /// <summary>Sef mora postojati i imati najmanje 5 godina iskustva.</summary>
     private bool ValidateSef(string? sefId, out string error)
     {
         error = "";
@@ -56,7 +55,7 @@ public class IzdavacController
         if (i == null) return false;
 
         foreach (var k in _ctx.Knjige.Where(k => k.IzdavacSifra == sifra))
-            k.IzdavacSifra = null;                          // knjige ostaju bez izdavaca
+            k.IzdavacSifra = null;                          
 
         _ctx.Izdavaci.Remove(i);
         _ctx.Commit();

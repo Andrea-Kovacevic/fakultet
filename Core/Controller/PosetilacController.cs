@@ -45,7 +45,6 @@ public class PosetilacController
         p.Email = izmenjen.Email;
         p.GodinaClanstva = izmenjen.GodinaClanstva;
         p.Status = izmenjen.Status;
-        // broj clanske karte i liste (kupovine, zelje) se ovde ne menjaju
         _ctx.Commit();
         error = "";
         return true;
