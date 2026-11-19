@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using Core.Storage;
+using Core.Serialization;
 
 namespace Core.Storage;
 
@@ -11,12 +12,11 @@ public class DataContext
     public List<Kupovina> Kupovine { get; private set; } = new();
     public List<Izdavac> Izdavaci { get; private set; } = new();
 
-    private readonly JsonStorage<Posetilac> _posetiociFile = new("posetioci.json");
-    private readonly JsonStorage<Autor> _autoriFile = new("autori.json");
-    private readonly JsonStorage<Knjiga> _knjigeFile = new("knjige.json");
-    private readonly JsonStorage<Kupovina> _kupovineFile = new("kupovine.json");
-    private readonly JsonStorage<Izdavac> _izdavaciFile = new("izdavaci.json");
-
+    private readonly CsvStorage<Posetilac> _posetiociFile = new("posetioci.csv");
+    private readonly CsvStorage<Autor> _autoriFile = new("autori.csv");
+    private readonly CsvStorage<Knjiga> _knjigeFile = new("knjige.csv");
+    private readonly CsvStorage<Kupovina> _kupovineFile = new("kupovine.csv");
+    private readonly CsvStorage<Izdavac> _izdavaciFile = new("izdavaci.csv");
     public void Load()
     {
         Posetioci = _posetiociFile.Load();

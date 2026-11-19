@@ -1,18 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Globalization;
 using System.Text.Json.Serialization;
+using Core.Serialization;
 
 namespace Core.Models;
 
-public class Kupovina
+public class Kupovina : ISerializable
 {
     public string PosetilacKartica { get; set; } = "";
     public string Isbn { get; set; } = "";
     public DateTime DatumKupovine { get; set; }
-    public int Ocena { get; set; }             
+    public int Ocena { get; set; }
     public string Komentar { get; set; } = "";
+
     [JsonIgnore] public Posetilac? Posetilac { get; set; }
     [JsonIgnore] public Knjiga? Knjiga { get; set; }
-}
 
+    public string[] ToCSV() => new[]
+    {
+        PosetilacKartica, Isbn, DatumKupovine.ToString("yyyy-MM-dd"),
+        Ocena.ToString(), Komentar.Replace('|', ' ')
+    };
+
+    public void FromCSV(string[] v)
+    {
+        PosetilacKartica = v[0];
+        Isbn = v[1];
+        DatumKupovine = DateTime.ParseExact(v[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        Ocena = int.Parse(v[3]);
+        Komentar = v[4];
+    }
+}

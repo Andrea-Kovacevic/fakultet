@@ -28,13 +28,13 @@ Aplikacija je namenjena referentu sajma knjiga. U ovoj fazi (prva kontrolna tač
 - `#prikaz_knjiga`, `#brisanje_knjige`
 
 ### Zajedničko
-- Skladištenje podataka: `DataContext`, `JsonStorage`
+- Skladištenje podataka: `DataContext`, `CSVStorage`
 - Unos sa konzole: `ConsoleInput`
 - Glavni meni: `Program.cs`
 
 ## Tehnologije
 - C# / .NET 10
-- Serijalizacija: JSON (`System.Text.Json`), fajlovi se čuvaju u folderu `Data` pored izvršnog fajla
+- Serijalizacija: CSV, fajlovi se čuvaju u folderu `Data` pored izvršnog fajla
 - Arhitektura: model, kontroler i prikaz (MVC)
 
 ## Struktura projekta
@@ -43,7 +43,7 @@ Core/
   Models/       klase modela (Posetilac, Autor, Knjiga, Kupovina, Izdavac, Adresa, StatusClanstva)
   Controller/   poslovna logika i validacija
   View/         konzolni prikaz i unos
-  Storage/      čuvanje i učitavanje (JSON), povezivanje objekata
+  Storage/      čuvanje i učitavanje (CSV), povezivanje objekata
   Program.cs    ulazna tačka
 ```
 
