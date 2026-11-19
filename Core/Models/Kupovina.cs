@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.Json.Serialization;
 using Core.Serialization;
 
 namespace Core.Models;
@@ -12,8 +11,8 @@ public class Kupovina : ISerializable
     public int Ocena { get; set; }
     public string Komentar { get; set; } = "";
 
-    [JsonIgnore] public Posetilac? Posetilac { get; set; }
-    [JsonIgnore] public Knjiga? Knjiga { get; set; }
+    public Posetilac? Posetilac { get; set; }
+    public Knjiga? Knjiga { get; set; }
 
     public string[] ToCSV() => new[]
     {

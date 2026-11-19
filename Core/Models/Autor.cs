@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.Json.Serialization;
 using Core.Serialization;
 
 namespace Core.Models;
@@ -15,7 +14,7 @@ public class Autor : ISerializable
     public string Email { get; set; } = "";
     public int GodineIskustva { get; set; }
 
-    [JsonIgnore] public List<Knjiga> Knjige { get; set; } = new();
+    public List<Knjiga> Knjige { get; set; } = new();
 
     public string[] ToCSV() => new[]
     {

@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.Json.Serialization;
 using Core.Serialization;
 
 namespace Core.Models;
@@ -15,10 +14,11 @@ public class Knjiga : ISerializable
     public List<string> AutoriIds { get; set; } = new();
     public string? IzdavacSifra { get; set; }
 
-    [JsonIgnore] public List<Autor> Autori { get; set; } = new();
-    [JsonIgnore] public Izdavac? Izdavac { get; set; }
-    [JsonIgnore] public List<Posetilac> Kupci { get; set; } = new();
-    [JsonIgnore] public List<Posetilac> ZeljniPosetioci { get; set; } = new();
+    public List<Autor> Autori { get; set; } = new();
+    public Izdavac? Izdavac { get; set; }
+    public List<Posetilac> Kupci { get; set; } = new();
+    public List<Posetilac> ZeljniPosetioci { get; set; } = new();
+
 
     public string[] ToCSV() => new[]
     {

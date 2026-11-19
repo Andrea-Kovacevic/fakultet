@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.Json.Serialization;
 using Core.Serialization;
 
 namespace Core.Models;
@@ -17,9 +16,8 @@ public class Posetilac : ISerializable
     public StatusClanstva Status { get; set; }
     public List<string> ListaZeljaIsbn { get; set; } = new();
 
-    [JsonIgnore] public List<Kupovina> Kupovine { get; set; } = new();
-    [JsonIgnore] public List<Knjiga> ListaZelja { get; set; } = new();
-    [JsonIgnore]
+    public List<Kupovina> Kupovine { get; set; } = new();
+    public List<Knjiga> ListaZelja { get; set; } = new();
     public double ProsecnaOcena =>
         Kupovine.Count == 0 ? 0 : Kupovine.Average(k => k.Ocena);
 
